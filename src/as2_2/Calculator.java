@@ -33,6 +33,8 @@ public class Calculator {
 			System.out.println(number1 + " + " + number2 + " = " + (number1 + number2));
 			
 		case 2:
+
+			System.out.println(number1 + " - " + number2 + " = " + (number1 - number2));
 			
 		case 3:
 			
@@ -82,7 +84,7 @@ public class Calculator {
 		while (!inputIsValid) {
 			
 			// Prompt user for input.
-			System.out.println("Please choose your operand:\n1. Addition\n");
+			System.out.println("Please choose your operand:\n1. Addition\n2. Subtraction\n");
 			
 			// Try to store user input as int; output error message if unsuccessful and ask user to try again.
 			try {
