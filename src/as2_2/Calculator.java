@@ -11,8 +11,6 @@ public class Calculator {
 	static Scanner scnr = new Scanner(System.in);
 
 	static boolean inputIsValid = false;
-	static double numberInput = 0.0;
-	static int operandChoice = 0;
 	
 	/**
 	 * The main method of the program.
@@ -20,30 +18,58 @@ public class Calculator {
 	 */
 	public static void main(String[] args) {
 		
+		boolean loop = true;
+		
 		// Gets number/operand inputs from the user.
 		double number1 = chooseNumber();
-		int operand = chooseOperand();
-		double number2 = chooseNumber();
+		double number2;
+		int operand;
+		double answer = 0.0;
 		
-		// Switch statement calculates based on operand choice & outputs answer.
-		switch (operand) {
-		
-		case 1:
+		while (loop) {
 			
-			System.out.println(number1 + " + " + number2 + " = " + (number1 + number2));
+			System.out.println("Getting operand");
+			operand = chooseOperand();
+			System.out.println("Getting number 2");
+			number2 = chooseNumber();
 			
-		case 2:
+			// Switch statement calculates based on operand choice & outputs answer.
+			switch (operand) {
+			
+			case 1:
+				
+				answer = number1 + number2;
+				System.out.println(number1 + " + " + number2 + " = " + answer);
+				break;
+				
+			case 2:
 
-			System.out.println(number1 + " - " + number2 + " = " + (number1 - number2));
+				answer = number1 - number2;
+				System.out.println(number1 + " - " + number2 + " = " + answer);
+				break;
+				
+			case 3:
+				
+				answer = number1 * number2;
+				System.out.println(number1 + " x " + number2 + " = " + answer);
+				break;
+				
+			case 4:
+				
+				answer = number1 / number2;
+				System.out.println(number1 + " / " + number2 + " = " + answer);
+				
+			}
 			
-		case 3:
-			
-			System.out.println(number1 + " x " + number2 + " = " + (number1 * number2));
-			
-		case 4:
-			
-			System.out.println(number1 + " / " + number2 + " = " + (number1 / number2));
-			
+			if (clearMemory()) {
+				System.out.println("Getting number 1");
+				number1 = chooseNumber();
+				
+			} else {
+				
+				number1 = answer;
+				
+			}
 		}	
 	}
 	
@@ -53,7 +79,9 @@ public class Calculator {
 	 */
 	private static double chooseNumber() {
 		
-		// While loop for first number input.
+		double numberInput = 0.0;
+		
+		// While loop for number input.
 		while (!inputIsValid) {
 					
 			// Prompt user for input.
@@ -84,6 +112,9 @@ public class Calculator {
 	 */
 	private static int chooseOperand() {
 		
+		int operandChoice = 0;
+		
+		// While loop for operand input.
 		while (!inputIsValid) {
 			
 			// Prompt user for input.
@@ -108,7 +139,7 @@ public class Calculator {
 				
 			} else {
 				
-				System.out.println("Invalid operand input. Try again.");
+				System.out.println("Invalid choice. Try again.");
 				
 			}	
 		}
@@ -116,5 +147,53 @@ public class Calculator {
 		// Reset inputIsValid for the next user choice & return user input
 		inputIsValid = false;
 		return operandChoice;
+	}
+	
+	/**
+	 * Method to get user input on clearing memory or not.
+	 * @return boolean
+	 */
+	private static boolean clearMemory() {
+		
+		int clearChoice = 0;
+		
+		// While loop for memory clear input.
+		while (!inputIsValid) {
+			
+			// Prompt user for input.
+			System.out.println("Do you want to clear the memory or continue calculations with your answer?\n1. Clear memory\n2. Continue with answer");
+			
+			try {
+				
+				clearChoice = scnr.nextInt();
+				
+			} catch (Exception TypeMismatchException) {
+				
+				System.out.println("Your input is invalid. It may only be a whole number. Try again.");
+				scnr.nextLine();
+				
+			}
+			
+			// Determines if the int entered is a valid choice.
+			if (clearChoice > 0 && clearChoice < 3) {
+				
+				inputIsValid = true;
+				
+			} else {
+				
+				System.out.println("Invalid choice. Try again.");
+				
+			}
+		}
+		
+		// Reset inputIsValid for the next user choice & return user input
+		inputIsValid = false;
+		if (clearChoice == 1) {
+			System.out.println("Returning true");
+			return true;
+		} else {
+			System.out.println("Returning false");
+			return false;
+		}
 	}
 }
